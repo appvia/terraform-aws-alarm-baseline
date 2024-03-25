@@ -6,6 +6,8 @@ locals {
   region     = data.aws_region.current.name
   # is the slack notification enabled 
   enable_slack = var.notification.slack != null && var.notification.slack.webhook_url != null
+  # is email notification enabled
+  enable_email = var.notification.email != null && length(var.notification.email.addresses) > 0
   # sns topic arn 
   sns_topic_arn = var.create_sns_topic ? module.notifications[0].topic_arn : format("arn:aws:sns:%s::%s", local.account_id, var.sns_topic_name)
 }
@@ -37,6 +39,17 @@ module "notifications" {
       }]
     }
   }
+}
+
+#
+## Provision email notification for the SNS topic_arn
+#
+resource "aws_sns_topic_subscription" "emails" {
+  for_each = local.enable_email ? { for x in var.notification.email.addresses : x => x } : {}
+
+  topic_arn = local.sns_topic_arn
+  protocol  = "email"
+  endpoint  = each.value
 }
 
 #
