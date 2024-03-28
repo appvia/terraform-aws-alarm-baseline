@@ -45,6 +45,7 @@ module "account_baseline_alarms" {
 | Name | Type |
 |------|------|
 | [aws_cloudwatch_log_metric_filter.aws_config_changes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
+| [aws_cloudwatch_log_metric_filter.breakglass_activity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
 | [aws_cloudwatch_log_metric_filter.cloudtrail_cfg_changes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
 | [aws_cloudwatch_log_metric_filter.console_signin_failures](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
 | [aws_cloudwatch_log_metric_filter.disable_or_delete_cmk](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
@@ -60,6 +61,7 @@ module "account_baseline_alarms" {
 | [aws_cloudwatch_log_metric_filter.unauthorized_api_calls](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
 | [aws_cloudwatch_log_metric_filter.vpc_changes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
 | [aws_cloudwatch_metric_alarm.aws_config_changes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
+| [aws_cloudwatch_metric_alarm.breakglass_activity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
 | [aws_cloudwatch_metric_alarm.cloudtrail_cfg_changes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
 | [aws_cloudwatch_metric_alarm.console_signin_failures](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
 | [aws_cloudwatch_metric_alarm.disable_or_delete_cmk](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
@@ -86,6 +88,7 @@ module "account_baseline_alarms" {
 | <a name="input_cloudtrail_log_group_name"></a> [cloudtrail\_log\_group\_name](#input\_cloudtrail\_log\_group\_name) | The name of the CloudTrail log group to filter on | `string` | `"aws-controltower/CloudTrailLogs"` | no |
 | <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | The boolean flag whether to create the SNS topic for alarms. | `bool` | `true` | no |
 | <a name="input_enable_aws_config_changes"></a> [enable\_aws\_config\_changes](#input\_enable\_aws\_config\_changes) | The boolean flag whether the aws\_config\_changes alarm is enabled or not. | `bool` | `true` | no |
+| <a name="input_enable_breakglass_activity"></a> [enable\_breakglass\_activity](#input\_enable\_breakglass\_activity) | The boolean flag whether the breakglass\_logins alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_cloudtrail_cfg_changes"></a> [enable\_cloudtrail\_cfg\_changes](#input\_enable\_cloudtrail\_cfg\_changes) | The boolean flag whether the cloudtrail\_cfg\_changes alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_console_signin_failures"></a> [enable\_console\_signin\_failures](#input\_enable\_console\_signin\_failures) | The boolean flag whether the console\_signin\_failures alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_disable_or_delete_cmk"></a> [enable\_disable\_or\_delete\_cmk](#input\_enable\_disable\_or\_delete\_cmk) | The boolean flag whether the disable\_or\_delete\_cmk alarm is enabled or not. | `bool` | `true` | no |

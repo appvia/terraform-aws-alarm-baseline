@@ -16,6 +16,12 @@ variable "notification" {
   })
 }
 
+variable "enable_breakglass_activity" {
+  description = "The boolean flag whether the breakglass_logins alarm is enabled or not."
+  type        = bool
+  default     = true
+}
+
 variable "enable_unauthorized_api_calls" {
   description = "The boolean flag whether the unauthorized_api_calls alarm is enabled or not."
   type        = bool
