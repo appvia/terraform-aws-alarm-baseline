@@ -1,4 +1,3 @@
-
 variable "notification" {
   description = "The configuration for how to send notifications."
   type = object({
