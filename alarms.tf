@@ -1,3 +1,37 @@
+## Define a cloudwatch filter to watch for logins from users prefixed with breakglass 
+resource "aws_cloudwatch_log_metric_filter" "breakglass_activity" {
+  count = var.enable_breakglass_activity ? 1 : 0
+
+  name           = "BreakglassActivity"
+  pattern        = "{ $.userIdentity.userName = \"^breakglass.*\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
+  log_group_name = var.cloudtrail_log_group_name
+
+
+  metric_transformation {
+    name      = "BreakglassActivity"
+    namespace = var.alarm_namespace
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "breakglass_activity" {
+  count = var.enable_breakglass_activity ? 1 : 0
+
+  alarm_actions             = [local.sns_topic_arn]
+  alarm_description         = "Monitoring breakglass user activity will help ensure that the use of breakglass accounts is monitored and audited."
+  alarm_name                = "BreakglassActivity"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = "1"
+  insufficient_data_actions = []
+  metric_name               = aws_cloudwatch_log_metric_filter.breakglass_activity[0].id
+  namespace                 = var.alarm_namespace
+  period                    = "300"
+  statistic                 = "Sum"
+  tags                      = var.tags
+  threshold                 = "1"
+  treat_missing_data        = "notBreaching"
+}
+
 resource "aws_cloudwatch_log_metric_filter" "unauthorized_api_calls" {
   count = var.enable_unauthorized_api_calls ? 1 : 0
 

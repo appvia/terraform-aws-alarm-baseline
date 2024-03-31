@@ -1,4 +1,3 @@
-
 variable "notification" {
   description = "The configuration for how to send notifications."
   type = object({
@@ -14,6 +13,12 @@ variable "notification" {
       webhook_url = string
     }), null)
   })
+}
+
+variable "enable_breakglass_activity" {
+  description = "The boolean flag whether the breakglass_logins alarm is enabled or not."
+  type        = bool
+  default     = true
 }
 
 variable "enable_unauthorized_api_calls" {

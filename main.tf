@@ -5,16 +5,14 @@ locals {
   account_id = data.aws_caller_identity.current.account_id
   region     = data.aws_region.current.name
   # is the slack notification enabled 
-  enable_slack = var.notification.slack != null && var.notification.slack.webhook_url != null
+  enable_slack = var.notification.slack != null
   # is email notification enabled
-  enable_email = var.notification.email != null && length(var.notification.email.addresses) > 0
+  enable_email = var.notification.email != null
   # sns topic arn 
   sns_topic_arn = var.create_sns_topic ? module.notifications[0].topic_arn : format("arn:aws:sns:%s::%s", local.account_id, var.sns_topic_name)
 }
 
-#
 ## Provision the SNS topic for the budgets 
-#
 module "notifications" {
   source  = "terraform-aws-modules/sns/aws"
   version = "v6.0.1"
@@ -41,9 +39,7 @@ module "notifications" {
   }
 }
 
-#
 ## Provision email notification for the SNS topic_arn
-#
 resource "aws_sns_topic_subscription" "emails" {
   for_each = local.enable_email ? { for x in var.notification.email.addresses : x => x } : {}
 
