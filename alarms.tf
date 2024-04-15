@@ -50,7 +50,7 @@ resource "aws_cloudwatch_metric_alarm" "unauthorized_api_calls" {
   count = var.enable_unauthorized_api_calls ? 1 : 0
 
   alarm_actions             = [local.sns_topic_arn]
-  alarm_description         = "Monitoring unauthorized API calls will help reveal application errors and may reduce time to detect malicious activity."
+  alarm_description         = "Monitoring unauthorized API calls will help ensure that only authorized actions are being taken in the AWS account. (CIS 1.4.0 4.1)"
   alarm_name                = "UnauthorizedAPICalls"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
@@ -117,7 +117,7 @@ resource "aws_cloudwatch_metric_alarm" "root_usage" {
   count = var.enable_root_usage ? 1 : 0
 
   alarm_actions             = [local.sns_topic_arn]
-  alarm_description         = "Monitoring for root account logins will provide visibility into the use of a fully privileged account and an opportunity to reduce the use of it."
+  alarm_description         = "Monitoring for root account logins will provide visibility into the use of a fully privileged account and an opportunity to reduce the use of it. (CIS 1.4.0 4.3)"
   alarm_name                = "RootUsage"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
@@ -213,7 +213,7 @@ resource "aws_cloudwatch_metric_alarm" "console_signin_failures" {
   count = var.enable_console_signin_failures ? 1 : 0
 
   alarm_actions             = [local.sns_topic_arn]
-  alarm_description         = "Monitoring failed console logins may decrease lead time to detect an attempt to brute force a credential, which may provide an indicator, such as source IP, that can be used in other event correlation."
+  alarm_description         = "Monitoring failed console logins may decrease lead time to detect an attempt to brute force a credential, which may provide an indicator, such as source IP, that can be used in other event correlation. (CIS 1.4.0 4.6)"
   alarm_name                = "ConsoleSigninFailures"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
@@ -245,7 +245,7 @@ resource "aws_cloudwatch_metric_alarm" "disable_or_delete_cmk" {
   count = var.enable_disable_or_delete_cmk ? 1 : 0
 
   alarm_actions             = [local.sns_topic_arn]
-  alarm_description         = "Monitoring failed console logins may decrease lead time to detect an attempt to brute force a credential, which may provide an indicator, such as source IP, that can be used in other event correlation."
+  alarm_description         = "Monitoring failed console logins may decrease lead time to detect an attempt to brute force a credential, which may provide an indicator, such as source IP, that can be used in other event correlation. (CIS 1.4.0 4.7)"
   alarm_name                = "DisableOrDeleteCMK"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
@@ -309,7 +309,7 @@ resource "aws_cloudwatch_metric_alarm" "aws_config_changes" {
   count = var.enable_aws_config_changes ? 1 : 0
 
   alarm_actions             = [local.sns_topic_arn]
-  alarm_description         = "Monitoring changes to AWS Config configuration will help ensure sustained visibility of configuration items within the AWS account."
+  alarm_description         = "Monitoring changes to AWS Config configuration will help ensure sustained visibility of configuration items within the AWS account. (CIS 1.4.0 4.9)"
   alarm_name                = "AWSConfigChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
@@ -341,7 +341,7 @@ resource "aws_cloudwatch_metric_alarm" "security_group_changes" {
   count = var.enable_security_group_changes ? 1 : 0
 
   alarm_actions             = [local.sns_topic_arn]
-  alarm_description         = "Monitoring changes to security group will help ensure that resources and services are not unintentionally exposed."
+  alarm_description         = "Monitoring changes to security group will help ensure that resources and services are not unintentionally exposed. (CIS 1.4.0 4.10)"
   alarm_name                = "SecurityGroupChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
@@ -373,7 +373,7 @@ resource "aws_cloudwatch_metric_alarm" "nacl_changes" {
   count = var.enable_nacl_changes ? 1 : 0
 
   alarm_actions             = [local.sns_topic_arn]
-  alarm_description         = "Monitoring changes to NACLs will help ensure that AWS resources and services are not unintentionally exposed."
+  alarm_description         = "Monitoring changes to NACLs will help ensure that AWS resources and services are not unintentionally exposed. (CIS 1.4.0 4.11)"
   alarm_name                = "NACLChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
