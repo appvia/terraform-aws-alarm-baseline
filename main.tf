@@ -2,7 +2,7 @@
 ## Provision the notifications  
 module "notifications" {
   source  = "appvia/notifications/aws"
-  version = "0.0.1"
+  version = "0.1.0"
 
   allowed_aws_services = ["cloudwatch.amazonaws.com"]
   create_sns_topic     = var.create_sns_topic
