@@ -15,7 +15,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_account_baseline_alarms"></a> [account\_baseline\_alarms](#module\_account\_baseline\_alarms) | ../.. | n/a |
+| <a name="module_notifications"></a> [notifications](#module\_notifications) | ../.. | n/a |
 
 ## Resources
 

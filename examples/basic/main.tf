@@ -1,8 +1,5 @@
-#
-## 
-#
 
-module "account_baseline_alarms" {
+module "notifications" {
   source = "../.."
 
   enable_no_mfa_console_signin = true
