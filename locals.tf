@@ -16,5 +16,5 @@ locals {
   } : null
 
   ## Is the arn of the sns topic to use, created or existing 
-  sns_topic_arn = var.create_sns_topic ? module.notifications[0].topic_arn : format("arn:aws:sns:%s::%s", local.account_id, var.sns_topic_name)
+  sns_topic_arn = var.create_sns_topic ? module.notifications.sns_topic_arn : format("arn:aws:sns:%s::%s", local.account_id, var.sns_topic_name)
 }
