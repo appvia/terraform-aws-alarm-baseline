@@ -37,7 +37,7 @@ module "account_baseline_alarms" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_notifications"></a> [notifications](#module\_notifications) | appvia/notifications/aws | 0.1.0 |
+| <a name="module_notifications"></a> [notifications](#module\_notifications) | appvia/notifications/aws | 0.1.1 |
 
 ## Resources
 
