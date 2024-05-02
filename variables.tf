@@ -15,6 +15,12 @@ variable "notification" {
   })
 }
 
+variable "enable_administrator_sso_activity" {
+  description = "The boolean flag whether the administrator_sso_activity alarm is enabled or not."
+  type        = bool
+  default     = true
+}
+
 variable "enable_breakglass_activity" {
   description = "The boolean flag whether the breakglass_logins alarm is enabled or not."
   type        = bool
