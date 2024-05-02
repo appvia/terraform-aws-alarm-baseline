@@ -19,7 +19,7 @@ resource "aws_cloudwatch_metric_alarm" "admin_sso_activity" {
   count = var.enable_administrator_sso_activity ? 1 : 0
 
   alarm_actions             = [local.sns_topic_arn]
-  alarm_description         = "Monitoring for if anyone has used an administrative SSO role will help ensure that the use of breakglass accounts is monitored and audited."
+  alarm_description         = "Monitoring if anyone has used an administrative sso role to accces the accounts will ensure individually are following least privilege."
   alarm_name                = "AdminitratorSSOActivity"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
