@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_metric_filter" "admin_sso_activity" {
   count = var.enable_administrator_sso_activity ? 1 : 0
 
   name           = "AdminitratorSSOActivity"
-  pattern        = "{ $.userIdentity.userName = \"^AWSReservedSSO_Administrator.*\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
+  pattern        = "{ $.userIdentity.sessionContext.sessionIssuer.userName = AWSReservedSSO_Administrator*  && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
   log_group_name = var.cloudtrail_log_group_name
 
 
@@ -38,7 +38,7 @@ resource "aws_cloudwatch_log_metric_filter" "breakglass_activity" {
   count = var.enable_breakglass_activity ? 1 : 0
 
   name           = "BreakglassActivity"
-  pattern        = "{ $.userIdentity.userName = \"^breakglass.*\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
+  pattern        = "{ $.userIdentity.userName = breakglass* && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
   log_group_name = var.cloudtrail_log_group_name
 
 
