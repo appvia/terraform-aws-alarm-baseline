@@ -1,4 +1,6 @@
-# Account Baseline Alarms
+![Github Actions](../../actions/workflows/terraform.yml/badge.svg)
+
+# Terraform AWS Account Baseline Alarms
 
 The following repository contains a Terraform module that creates CloudWatch alarms for the AWS account baseline. The alarms are based on the CIS AWS Foundations Benchmark v1.4.0. Notifications for these can be sent to email, Slack and or Microsoft teams.
 
@@ -114,4 +116,3 @@ module "account_baseline_alarms" {
 |------|-------------|
 | <a name="output_sns_topic_arn"></a> [sns\_topic\_arn](#output\_sns\_topic\_arn) | The ARN of the SNS topic |
 <!-- END_TF_DOCS -->
-
