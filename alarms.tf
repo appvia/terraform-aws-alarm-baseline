@@ -3,13 +3,13 @@
 resource "aws_cloudwatch_log_metric_filter" "admin_sso_activity" {
   count = var.enable_administrator_sso_activity ? 1 : 0
 
-  name           = "AdminitratorSSOActivity"
+  name           = "AdministratorSSOActivity"
   pattern        = "{ $.userIdentity.sessionContext.sessionIssuer.userName = AWSReservedSSO_Administrator*  && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
   log_group_name = var.cloudtrail_log_group_name
 
 
   metric_transformation {
-    name      = "AdminitratorSSOActivity"
+    name      = "AdministratorSSOActivity"
     namespace = var.alarm_namespace
     value     = "1"
   }
@@ -20,7 +20,7 @@ resource "aws_cloudwatch_metric_alarm" "admin_sso_activity" {
 
   alarm_actions             = [local.sns_topic_arn]
   alarm_description         = "Monitoring if anyone has used an administrative sso role to accces the accounts will ensure individually are following least privilege."
-  alarm_name                = "AdminitratorSSOActivity"
+  alarm_name                = "AdministratorSSOActivity"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
   insufficient_data_actions = []
