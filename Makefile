@@ -16,13 +16,21 @@
 #
 AUTHOR_EMAIL=info@appvia.io
 
-.PHONY: all security lint format documentation documentation-examples validate-all validate validate-examples init
+.PHONY: all security lint format documentation documentation-examples validate-all validate validate-examples init examples
 
 default: all
 
 all: 
 	$(MAKE) init
 	$(MAKE) validate
+	$(MAKE) lint
+	$(MAKE) security
+	$(MAKE) format
+	$(MAKE) documentation
+
+examples:
+	$(MAKE) validate-examples
+	$(MAKE) lint-examples
 	$(MAKE) lint
 	$(MAKE) security
 	$(MAKE) format
