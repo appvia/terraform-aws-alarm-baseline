@@ -4,8 +4,14 @@ plugin "aws" {
   source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
 
+plugin "terraform" {
+    enabled = true
+    version = "0.7.0"
+    source  = "github.com/terraform-linters/tflint-ruleset-terraform"
+}
+
 config {
-  module = true
+  call_module_type = "local"
   force  = false
 }
 
