@@ -136,7 +136,7 @@ variable "create_sns_topic" {
 }
 
 variable "cloudtrail_log_group_name" {
-  description = "The name of the CloudTrail log group to filter on"
+  description = "The name of the CloudTrail log group to filter on."
   type        = string
   default     = "aws-controltower/CloudTrailLogs"
 }
@@ -148,6 +148,6 @@ variable "alarm_namespace" {
 }
 
 variable "tags" {
-  description = "A map of tags to add to all resources."
+  description = "A map of tags to add to all resources"
   type        = map(string)
 }
