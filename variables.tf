@@ -136,7 +136,7 @@ variable "create_sns_topic" {
 }
 
 variable "cloudtrail_log_group_name" {
-  description = "The name of the CloudTrail log group to filter on"
+  description = "The name of the CloudTrail log group to filter on."
   type        = string
   default     = "aws-controltower/CloudTrailLogs"
 }
