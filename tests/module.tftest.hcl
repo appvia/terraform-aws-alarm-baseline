@@ -16,7 +16,7 @@ run "basic" {
 
   assert {
     condition     = aws_cloudwatch_log_metric_filter.admin_sso_activity.0.log_group_name == "aws-controltower/CloudTrailLogs"
-    error_message = "Name of CW log group associated with CW log metric filter is incorrect"
+    error_message = "CloudWatch log group name associated with CW log metric filter is incorrect"
   }
 
   assert {
