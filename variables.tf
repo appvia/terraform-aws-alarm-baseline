@@ -5,7 +5,6 @@ variable "notification" {
       addresses = list(string)
     }), null)
     slack = optional(object({
-      channel     = string
       lambda_name = optional(string, "alarms-notifications")
       webhook_url = string
     }), null)

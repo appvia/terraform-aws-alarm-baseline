@@ -5,7 +5,6 @@ locals {
 
   ## The configuration for the slack notification 
   slack_configuration = var.notification.slack != null ? {
-    channel     = var.notification.slack.channel
     lambda_name = var.notification.slack.lambda_name
     webhook_url = var.notification.slack.webhook_url
   } : null
