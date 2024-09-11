@@ -150,3 +150,9 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
 }
+
+variable "enable_slack" {
+  description = "Enable/disable the posting of notifications to slack"
+  type        = bool
+  default     = true
+}
