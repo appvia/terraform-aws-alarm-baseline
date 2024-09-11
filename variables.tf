@@ -151,13 +151,8 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "enable_slack" {
-  description = "Enable/disable the posting of notifications to slack"
-  type        = bool
-  default     = true
-}
-
 variable "accounts_id_to_name" {
   description = "A mapping of account id and account name - used by notification lamdba to map an account ID to a human readable name"
   type        = map(string)
+  default     = null
 }
