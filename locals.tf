@@ -9,6 +9,8 @@ locals {
     webhook_url = var.notification.slack.webhook_url
   } : null
 
+  enable_slack = var.notification.slack != null
+
   ## The email configuration to use for notification
   email_configuration = var.notification.email != null ? {
     addresses = var.notification.email.addresses
