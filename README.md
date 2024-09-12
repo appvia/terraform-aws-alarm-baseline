@@ -90,6 +90,7 @@ module "account_baseline_alarms" {
 | <a name="input_accounts_id_to_name"></a> [accounts\_id\_to\_name](#input\_accounts\_id\_to\_name) | A mapping of account id and account name - used by notification lamdba to map an account ID to a human readable name | `map(string)` | `{}` | no |
 | <a name="input_alarm_namespace"></a> [alarm\_namespace](#input\_alarm\_namespace) | The cloudwatch alarm namespace. | `string` | `"cis-benchmark"` | no |
 | <a name="input_cloudtrail_log_group_name"></a> [cloudtrail\_log\_group\_name](#input\_cloudtrail\_log\_group\_name) | The name of the CloudTrail log group to filter on. | `string` | `"aws-controltower/CloudTrailLogs"` | no |
+| <a name="input_cloudwatch_log_group_retention"></a> [cloudwatch\_log\_group\_retention](#input\_cloudwatch\_log\_group\_retention) | The retention period for the cloudwatch log group (for lambda function logs) in days | `string` | `"0"` | no |
 | <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | The boolean flag whether to create the SNS topic for alarms. | `bool` | `true` | no |
 | <a name="input_enable_administrator_sso_activity"></a> [enable\_administrator\_sso\_activity](#input\_enable\_administrator\_sso\_activity) | The boolean flag whether the administrator\_sso\_activity alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_aws_config_changes"></a> [enable\_aws\_config\_changes](#input\_enable\_aws\_config\_changes) | The boolean flag whether the aws\_config\_changes alarm is enabled or not. | `bool` | `true` | no |

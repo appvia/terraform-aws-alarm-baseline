@@ -156,3 +156,9 @@ variable "accounts_id_to_name" {
   type        = map(string)
   default     = {}
 }
+
+variable "cloudwatch_log_group_retention" {
+  description = "The retention period for the cloudwatch log group (for lambda function logs) in days"
+  type        = string
+  default     = "0"
+}
