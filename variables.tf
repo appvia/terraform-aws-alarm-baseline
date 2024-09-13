@@ -162,3 +162,15 @@ variable "cloudwatch_log_group_retention" {
   type        = string
   default     = "0"
 }
+
+variable "identity_center_start_url" {
+  description = "The start URL of your Identity Center instance"
+  type        = string
+  default     = null
+}
+
+variable "identity_center_role" {
+  description = "The name of the role to use when redirecting through Identity Center"
+  type        = string
+  default     = null
+}
