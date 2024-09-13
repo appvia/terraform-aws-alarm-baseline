@@ -2,7 +2,7 @@
 ## Provision the notifications  
 module "notifications" {
   source  = "appvia/notifications/aws"
-  version = "1.0.3"
+  version = "1.0.4"
 
   allowed_aws_services           = ["cloudwatch.amazonaws.com"]
   create_sns_topic               = var.create_sns_topic
@@ -13,4 +13,6 @@ module "notifications" {
   tags                           = var.tags
   accounts_id_to_name            = var.accounts_id_to_name
   cloudwatch_log_group_retention = var.cloudwatch_log_group_retention
+  identity_center_start_url      = var.identity_center_start_url
+  identity_center_role           = var.identity_center_role
 }
