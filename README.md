@@ -85,7 +85,7 @@ module "account_baseline_alarms" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_notification"></a> [notification](#input\_notification) | The configuration for how to send notifications. | <pre>object({<br>    email = optional(object({<br>      addresses = list(string)<br>    }), null)<br>    slack = optional(object({<br>      channel     = string<br>      lambda_name = optional(string, "alarms-notifications")<br>      webhook_url = string<br>    }), null)<br>    teams = optional(object({<br>      webhook_url = string<br>    }), null)<br>  })</pre> | n/a | yes |
+| <a name="input_notification"></a> [notification](#input\_notification) | The configuration for how to send notifications. | <pre>object({<br/>    email = optional(object({<br/>      addresses = list(string)<br/>    }), null)<br/>    slack = optional(object({<br/>      channel     = string<br/>      lambda_name = optional(string, "alarms-notifications")<br/>      webhook_url = string<br/>    }), null)<br/>    teams = optional(object({<br/>      webhook_url = string<br/>    }), null)<br/>  })</pre> | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources. | `map(string)` | n/a | yes |
 | <a name="input_alarm_namespace"></a> [alarm\_namespace](#input\_alarm\_namespace) | The cloudwatch alarm namespace. | `string` | `"cis-benchmark"` | no |
 | <a name="input_cloudtrail_log_group_name"></a> [cloudtrail\_log\_group\_name](#input\_cloudtrail\_log\_group\_name) | The name of the CloudTrail log group to filter on | `string` | `"aws-controltower/CloudTrailLogs"` | no |
