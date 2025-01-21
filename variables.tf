@@ -86,6 +86,12 @@ variable "enable_aws_config_changes" {
   default     = true
 }
 
+variable "enable_aws_extended_support_alerts" {
+  description = "The boolean flag whether the eventbridge rules for extended support (EKS/RDS) billing alerts are enabled or not."
+  type        = bool
+  default     = true
+}
+
 variable "enable_security_group_changes" {
   description = "The boolean flag whether the security_group_changes alarm is enabled or not."
   type        = bool
