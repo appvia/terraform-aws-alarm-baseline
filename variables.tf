@@ -1,17 +1,6 @@
-variable "notification" {
-  description = "The configuration for how to send notifications."
-  type = object({
-    email = optional(object({
-      addresses = list(string)
-    }), null)
-    slack = optional(object({
-      lambda_name = optional(string, "alarms-notifications")
-      webhook_url = string
-    }), null)
-    teams = optional(object({
-      webhook_url = string
-    }), null)
-  })
+variable "sns_topic_arn" {
+  description = "The SNS topic ARN to use for notification"
+  type        = string
 }
 
 variable "enable_administrator_sso_activity" {
@@ -122,18 +111,6 @@ variable "enable_organizations_changes" {
   default     = true
 }
 
-variable "sns_topic_name" {
-  description = "The name of the SNS topic to create for alarms."
-  type        = string
-  default     = "cis-benchmark-alarms"
-}
-
-variable "create_sns_topic" {
-  description = "The boolean flag whether to create the SNS topic for alarms."
-  type        = bool
-  default     = true
-}
-
 variable "cloudtrail_log_group_name" {
   description = "The name of the CloudTrail log group to filter on."
   type        = string
@@ -151,26 +128,8 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "accounts_id_to_name" {
-  description = "A mapping of account id and account name - used by notification lamdba to map an account ID to a human readable name"
-  type        = map(string)
-  default     = {}
-}
-
 variable "cloudwatch_log_group_retention" {
   description = "The retention period for the cloudwatch log group (for lambda function logs) in days"
   type        = string
   default     = "0"
-}
-
-variable "identity_center_start_url" {
-  description = "The start URL of your Identity Center instance"
-  type        = string
-  default     = null
-}
-
-variable "identity_center_role" {
-  description = "The name of the role to use when redirecting through Identity Center"
-  type        = string
-  default     = null
 }
