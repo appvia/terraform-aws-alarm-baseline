@@ -4,11 +4,7 @@ run "basic" {
   command = plan
 
   variables {
-    notification = {
-      email = {
-        addresses = ["security@example.com"]
-      }
-    }
+    sns_topic_arn = "arn:aws:sns:us-west-2:123456789012:security"
     tags = {
       team = "security"
     }
