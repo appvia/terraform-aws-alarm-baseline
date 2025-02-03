@@ -2,7 +2,7 @@
 ## Provision the notifications
 module "notifications" {
   source  = "appvia/notifications/aws"
-  version = "2.0.0"
+  version = "2.0.1"
 
   accounts_id_to_name_parameter_arn = var.accounts_id_to_name_parameter_arn
   allowed_aws_services              = ["cloudwatch.amazonaws.com"]
