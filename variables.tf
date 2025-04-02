@@ -127,9 +127,3 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
 }
-
-variable "cloudwatch_log_group_retention" {
-  description = "The retention period for the cloudwatch log group (for lambda function logs) in days"
-  type        = string
-  default     = "0"
-}
