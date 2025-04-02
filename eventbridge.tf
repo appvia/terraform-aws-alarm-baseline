@@ -19,7 +19,7 @@ resource "aws_cloudwatch_event_rule" "rds_extended_support_billing" {
 resource "aws_cloudwatch_event_target" "rds_extended_support_billing" {
   count = var.enable_aws_extended_support_alerts ? 1 : 0
   rule  = aws_cloudwatch_event_rule.rds_extended_support_billing[0].name
-  arn   = local.sns_topic_arn
+  arn   = var.sns_topic_arn
 }
 
 # EventBridge Rule (EKS Extended Support Billing)
@@ -43,5 +43,5 @@ resource "aws_cloudwatch_event_rule" "eks_extended_support_billing" {
 resource "aws_cloudwatch_event_target" "eks_extended_support_billing" {
   count = var.enable_aws_extended_support_alerts ? 1 : 0
   rule  = aws_cloudwatch_event_rule.eks_extended_support_billing[0].name
-  arn   = local.sns_topic_arn
+  arn   = var.sns_topic_arn
 }

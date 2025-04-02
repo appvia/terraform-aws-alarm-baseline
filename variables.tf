@@ -111,6 +111,12 @@ variable "enable_organizations_changes" {
   default     = true
 }
 
+variable "enable_aws_extended_support_alerts" {
+  description = "The boolean flag whether the eventbridge rules for extended support (EKS/RDS) billing alerts are enabled or not."
+  type        = bool
+  default     = true
+}
+
 variable "cloudtrail_log_group_name" {
   description = "The name of the CloudTrail log group to filter on."
   type        = string
