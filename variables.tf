@@ -133,3 +133,9 @@ variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
 }
+
+variable "unauthorized_api_calls_extra_excluded_services" {
+  description = "Optional list of additional AWS services to exclude from unauthorized API call metric filter."
+  type        = list(string)
+  default     = []
+}
