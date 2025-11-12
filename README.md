@@ -64,6 +64,7 @@ module "account_baseline_alarms" {
 | <a name="input_enable_security_group_changes"></a> [enable\_security\_group\_changes](#input\_enable\_security\_group\_changes) | The boolean flag whether the security\_group\_changes alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_unauthorized_api_calls"></a> [enable\_unauthorized\_api\_calls](#input\_enable\_unauthorized\_api\_calls) | The boolean flag whether the unauthorized\_api\_calls alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_vpc_changes"></a> [enable\_vpc\_changes](#input\_enable\_vpc\_changes) | The boolean flag whether the vpc\_changes alarm is enabled or not. | `bool` | `true` | no |
+| <a name="input_unauthorized_api_calls_extra_excluded_services"></a> [unauthorized\_api\_calls\_extra\_excluded\_services](#input\_unauthorized\_api\_calls\_extra\_excluded\_services) | Optional list of additional AWS services to exclude from unauthorized API call metric filter. | `list(string)` | `[]` | no |
 
 ## Outputs
 
