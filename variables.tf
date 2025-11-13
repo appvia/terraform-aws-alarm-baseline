@@ -138,4 +138,16 @@ variable "unauthorized_api_calls_extra_excluded_services" {
   description = "Optional list of additional AWS services to exclude from unauthorized API call metric filter."
   type        = list(string)
   default     = []
+
+  validation {
+    condition = alltrue([
+      alltrue([
+        for svc in var.unauthorized_api_calls_extra_excluded_services :
+        can(regex("^([a-z0-9-]+)\\.amazonaws\\.com$", svc))
+      ]),
+      length(join(",", var.unauthorized_api_calls_extra_excluded_services)) < 1000
+    ])
+
+    error_message = "Each excluded service must be a valid AWS service domain (e.g. inspector2.amazonaws.com) and total list length must not exceed 500 characters."
+  }
 }
