@@ -9,13 +9,10 @@ locals {
     "($.eventSource != \"${svc}\")"
   ]
 
-  unauthorized_api_calls_all_exclusions = join(
-    " && ",
-    concat(
-      local.unauthorized_api_calls_base_exclusions,
-      local.unauthorized_api_calls_extra_exclusions
-    )
-  )
+  unauthorized_api_calls_all_exclusions = join(" && ", concat(
+    local.unauthorized_api_calls_base_exclusions,
+    local.unauthorized_api_calls_extra_exclusions
+  ))
 
-  unauthorized_api_calls_filter_pattern = "{(($.errorCode = \"*UnauthorizedOperation\") || ($.errorCode = \"AccessDenied*\")) && (${local.unauthorized_api_calls_all_exclusions})}"
+  unauthorized_api_calls_filter_pattern = "{(($.errorCode = \"*UnauthorizedOperation\") || ($.errorCode = \"AccessDenied*\")) && ${local.unauthorized_api_calls_all_exclusions}}"
 }
