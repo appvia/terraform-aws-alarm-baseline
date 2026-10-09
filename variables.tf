@@ -1,6 +1,7 @@
 variable "sns_topic_arn" {
-  description = "The SNS topic ARN to use for notification"
+  description = "The SNS topic ARN to use for notification. When null, the alarms and rules are still created but no actions or targets are associated"
   type        = string
+  default     = null
 }
 
 variable "enable_administrator_sso_activity" {
@@ -9,10 +10,32 @@ variable "enable_administrator_sso_activity" {
   default     = true
 }
 
+variable "administrator_sso_role_name" {
+  description = "The name of the SSO administrator role to monitor in the administrator_sso_activity alarm; supports a trailing wildcard (*)"
+  type        = string
+  default     = "AWSReservedSSO_Administrator*"
+
+  validation {
+    condition     = can(regex("^[A-Za-z0-9+=,.@_-]+\\*?$", var.administrator_sso_role_name))
+    error_message = "The administrator_sso_role_name must be a valid IAM role name, optionally ending with a wildcard (*)."
+  }
+}
+
 variable "enable_breakglass_activity" {
   description = "The boolean flag whether the breakglass_logins alarm is enabled or not."
   type        = bool
   default     = true
+}
+
+variable "breakglass_user_name" {
+  description = "The name of the breakglass user(s) to monitor in the breakglass_activity alarm; supports a trailing wildcard (*)"
+  type        = string
+  default     = "breakglass*"
+
+  validation {
+    condition     = can(regex("^[A-Za-z0-9+=,.@_-]+\\*?$", var.breakglass_user_name))
+    error_message = "The breakglass_user_name must be a valid IAM user name, optionally ending with a wildcard (*)."
+  }
 }
 
 variable "enable_unauthorized_api_calls" {
@@ -77,6 +100,12 @@ variable "enable_aws_config_changes" {
 
 variable "enable_security_group_changes" {
   description = "The boolean flag whether the security_group_changes alarm is enabled or not."
+  type        = bool
+  default     = true
+}
+
+variable "enable_stackset_instance_failure_alerts" {
+  description = "The boolean flag whether the eventbridge rule for CloudFormation StackSet stack instance rollout failures is enabled or not."
   type        = bool
   default     = true
 }

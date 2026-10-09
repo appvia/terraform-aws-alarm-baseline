@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_metric_filter" "admin_sso_activity" {
   count = var.enable_administrator_sso_activity ? 1 : 0
 
   name           = "AdministratorSSOActivity"
-  pattern        = "{ $.userIdentity.sessionContext.sessionIssuer.userName = AWSReservedSSO_Administrator*  && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
+  pattern        = "{ $.userIdentity.sessionContext.sessionIssuer.userName = ${var.administrator_sso_role_name}  && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
   log_group_name = var.cloudtrail_log_group_name
 
 
@@ -18,7 +18,7 @@ resource "aws_cloudwatch_log_metric_filter" "admin_sso_activity" {
 resource "aws_cloudwatch_metric_alarm" "admin_sso_activity" {
   count = var.enable_administrator_sso_activity ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring if anyone has used an administrative sso role to accces the accounts will ensure individually are following least privilege."
   alarm_name                = "AdministratorSSOActivity"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -38,7 +38,7 @@ resource "aws_cloudwatch_log_metric_filter" "breakglass_activity" {
   count = var.enable_breakglass_activity ? 1 : 0
 
   name           = "BreakglassActivity"
-  pattern        = "{ $.userIdentity.userName = breakglass* && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
+  pattern        = "{ $.userIdentity.userName = ${var.breakglass_user_name} && $.userIdentity.invokedBy NOT EXISTS && $.eventType != \"AwsServiceEvent\" }"
   log_group_name = var.cloudtrail_log_group_name
 
 
@@ -52,7 +52,7 @@ resource "aws_cloudwatch_log_metric_filter" "breakglass_activity" {
 resource "aws_cloudwatch_metric_alarm" "breakglass_activity" {
   count = var.enable_breakglass_activity ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring breakglass user activity will help ensure that the use of breakglass accounts is monitored and audited."
   alarm_name                = "BreakglassActivity"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -84,7 +84,7 @@ resource "aws_cloudwatch_log_metric_filter" "unauthorized_api_calls" {
 resource "aws_cloudwatch_metric_alarm" "unauthorized_api_calls" {
   count = var.enable_unauthorized_api_calls ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring unauthorized API calls will help ensure that only authorized actions are being taken in the AWS account. (CIS 1.4.0 4.1)"
   alarm_name                = "UnauthorizedAPICalls"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -119,7 +119,7 @@ resource "aws_cloudwatch_log_metric_filter" "no_mfa_console_signin" {
 resource "aws_cloudwatch_metric_alarm" "no_mfa_console_signin" {
   count = var.enable_no_mfa_console_signin ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring for single-factor console logins will increase visibility into accounts that are not protected by MFA."
   alarm_name                = "NoMFAConsoleSignin"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -151,7 +151,7 @@ resource "aws_cloudwatch_log_metric_filter" "root_usage" {
 resource "aws_cloudwatch_metric_alarm" "root_usage" {
   count = var.enable_root_usage ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring for root account logins will provide visibility into the use of a fully privileged account and an opportunity to reduce the use of it. (CIS 1.4.0 4.3)"
   alarm_name                = "RootUsage"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -183,7 +183,7 @@ resource "aws_cloudwatch_log_metric_filter" "iam_changes" {
 resource "aws_cloudwatch_metric_alarm" "iam_changes" {
   count = var.enable_iam_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring changes to IAM policies will help ensure authentication and authorization controls remain intact."
   alarm_name                = "IAMChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -215,7 +215,7 @@ resource "aws_cloudwatch_log_metric_filter" "cloudtrail_cfg_changes" {
 resource "aws_cloudwatch_metric_alarm" "cloudtrail_cfg_changes" {
   count = var.enable_cloudtrail_cfg_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring changes to CloudTrail's configuration will help ensure sustained visibility to activities performed in the AWS account."
   alarm_name                = "CloudTrailCfgChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -247,7 +247,7 @@ resource "aws_cloudwatch_log_metric_filter" "console_signin_failures" {
 resource "aws_cloudwatch_metric_alarm" "console_signin_failures" {
   count = var.enable_console_signin_failures ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring failed console logins may decrease lead time to detect an attempt to brute force a credential, which may provide an indicator, such as source IP, that can be used in other event correlation. (CIS 1.4.0 4.6)"
   alarm_name                = "ConsoleSigninFailures"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -279,7 +279,7 @@ resource "aws_cloudwatch_log_metric_filter" "disable_or_delete_cmk" {
 resource "aws_cloudwatch_metric_alarm" "disable_or_delete_cmk" {
   count = var.enable_disable_or_delete_cmk ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring failed console logins may decrease lead time to detect an attempt to brute force a credential, which may provide an indicator, such as source IP, that can be used in other event correlation. (CIS 1.4.0 4.7)"
   alarm_name                = "DisableOrDeleteCMK"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -311,7 +311,7 @@ resource "aws_cloudwatch_log_metric_filter" "s3_bucket_policy_changes" {
 resource "aws_cloudwatch_metric_alarm" "s3_bucket_policy_changes" {
   count = var.enable_s3_bucket_policy_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring changes to S3 bucket policies may reduce time to detect and correct permissive policies on sensitive S3 buckets."
   alarm_name                = "S3BucketPolicyChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -343,7 +343,7 @@ resource "aws_cloudwatch_log_metric_filter" "aws_config_changes" {
 resource "aws_cloudwatch_metric_alarm" "aws_config_changes" {
   count = var.enable_aws_config_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring changes to AWS Config configuration will help ensure sustained visibility of configuration items within the AWS account. (CIS 1.4.0 4.9)"
   alarm_name                = "AWSConfigChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -375,7 +375,7 @@ resource "aws_cloudwatch_log_metric_filter" "security_group_changes" {
 resource "aws_cloudwatch_metric_alarm" "security_group_changes" {
   count = var.enable_security_group_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring changes to security group will help ensure that resources and services are not unintentionally exposed. (CIS 1.4.0 4.10)"
   alarm_name                = "SecurityGroupChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -407,7 +407,7 @@ resource "aws_cloudwatch_log_metric_filter" "nacl_changes" {
 resource "aws_cloudwatch_metric_alarm" "nacl_changes" {
   count = var.enable_nacl_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring changes to NACLs will help ensure that AWS resources and services are not unintentionally exposed. (CIS 1.4.0 4.11)"
   alarm_name                = "NACLChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -439,7 +439,7 @@ resource "aws_cloudwatch_log_metric_filter" "network_gw_changes" {
 resource "aws_cloudwatch_metric_alarm" "network_gw_changes" {
   count = var.enable_network_gw_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring changes to network gateways will help ensure that all ingress/egress traffic traverses the VPC border via a controlled path."
   alarm_name                = "NetworkGWChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -471,7 +471,7 @@ resource "aws_cloudwatch_log_metric_filter" "route_table_changes" {
 resource "aws_cloudwatch_metric_alarm" "route_table_changes" {
   count = var.enable_route_table_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring changes to route tables will help ensure that all VPC traffic flows through an expected path."
   alarm_name                = "RouteTableChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -503,7 +503,7 @@ resource "aws_cloudwatch_log_metric_filter" "vpc_changes" {
 resource "aws_cloudwatch_metric_alarm" "vpc_changes" {
   count = var.enable_vpc_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring changes to VPC will help ensure that all VPC traffic flows through an expected path."
   alarm_name                = "VPCChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -535,7 +535,7 @@ resource "aws_cloudwatch_log_metric_filter" "organizations_changes" {
 resource "aws_cloudwatch_metric_alarm" "organizations_changes" {
   count = var.enable_organizations_changes ? 1 : 0
 
-  alarm_actions             = [var.sns_topic_arn]
+  alarm_actions             = local.alarm_actions
   alarm_description         = "Monitoring AWS Organizations changes can help you prevent any unwanted, accidental or intentional modifications that may lead to unauthorized access or other security breaches."
   alarm_name                = "OrganizationsChanges"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
