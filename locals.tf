@@ -1,4 +1,7 @@
 locals {
+  ## The actions to associate to the alarms, empty when no SNS topic has been provided
+  alarm_actions = var.sns_topic_arn != null ? [var.sns_topic_arn] : []
+
   unauthorized_api_calls_base_exclusions = [
     "($.sourceIPAddress != \"delivery.logs.amazonaws.com\")",
     "($.eventName != \"HeadBucket\")"

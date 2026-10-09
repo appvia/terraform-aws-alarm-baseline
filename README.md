@@ -41,9 +41,10 @@ module "account_baseline_alarms" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_sns_topic_arn"></a> [sns\_topic\_arn](#input\_sns\_topic\_arn) | The SNS topic ARN to use for notification | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | n/a | yes |
+| <a name="input_administrator_sso_role_name"></a> [administrator\_sso\_role\_name](#input\_administrator\_sso\_role\_name) | The name of the SSO administrator role to monitor in the administrator\_sso\_activity alarm; supports a trailing wildcard (*) | `string` | `"AWSReservedSSO_Administrator*"` | no |
 | <a name="input_alarm_namespace"></a> [alarm\_namespace](#input\_alarm\_namespace) | The cloudwatch alarm namespace. | `string` | `"cis-benchmark"` | no |
+| <a name="input_breakglass_user_name"></a> [breakglass\_user\_name](#input\_breakglass\_user\_name) | The name of the breakglass user(s) to monitor in the breakglass\_activity alarm; supports a trailing wildcard (*) | `string` | `"breakglass*"` | no |
 | <a name="input_cloudtrail_log_group_name"></a> [cloudtrail\_log\_group\_name](#input\_cloudtrail\_log\_group\_name) | The name of the CloudTrail log group to filter on. | `string` | `"aws-controltower/CloudTrailLogs"` | no |
 | <a name="input_enable_administrator_sso_activity"></a> [enable\_administrator\_sso\_activity](#input\_enable\_administrator\_sso\_activity) | The boolean flag whether the administrator\_sso\_activity alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_aws_config_changes"></a> [enable\_aws\_config\_changes](#input\_enable\_aws\_config\_changes) | The boolean flag whether the aws\_config\_changes alarm is enabled or not. | `bool` | `true` | no |
@@ -62,8 +63,10 @@ module "account_baseline_alarms" {
 | <a name="input_enable_route_table_changes"></a> [enable\_route\_table\_changes](#input\_enable\_route\_table\_changes) | The boolean flag whether the route\_table\_changes alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_s3_bucket_policy_changes"></a> [enable\_s3\_bucket\_policy\_changes](#input\_enable\_s3\_bucket\_policy\_changes) | The boolean flag whether the s3\_bucket\_policy\_changes alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_security_group_changes"></a> [enable\_security\_group\_changes](#input\_enable\_security\_group\_changes) | The boolean flag whether the security\_group\_changes alarm is enabled or not. | `bool` | `true` | no |
+| <a name="input_enable_stackset_instance_failure_alerts"></a> [enable\_stackset\_instance\_failure\_alerts](#input\_enable\_stackset\_instance\_failure\_alerts) | The boolean flag whether the eventbridge rule for CloudFormation StackSet stack instance rollout failures is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_unauthorized_api_calls"></a> [enable\_unauthorized\_api\_calls](#input\_enable\_unauthorized\_api\_calls) | The boolean flag whether the unauthorized\_api\_calls alarm is enabled or not. | `bool` | `true` | no |
 | <a name="input_enable_vpc_changes"></a> [enable\_vpc\_changes](#input\_enable\_vpc\_changes) | The boolean flag whether the vpc\_changes alarm is enabled or not. | `bool` | `true` | no |
+| <a name="input_sns_topic_arn"></a> [sns\_topic\_arn](#input\_sns\_topic\_arn) | The SNS topic ARN to use for notification. When null, the alarms and rules are still created but no actions or targets are associated | `string` | `null` | no |
 | <a name="input_unauthorized_api_calls_extra_excluded_services"></a> [unauthorized\_api\_calls\_extra\_excluded\_services](#input\_unauthorized\_api\_calls\_extra\_excluded\_services) | Optional list of additional AWS services to exclude from unauthorized API call metric filter. | `list(string)` | `[]` | no |
 
 ## Outputs

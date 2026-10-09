@@ -17,7 +17,7 @@ resource "aws_cloudwatch_event_rule" "rds_extended_support_billing" {
 }
 
 resource "aws_cloudwatch_event_target" "rds_extended_support_billing" {
-  count = var.enable_aws_extended_support_alerts ? 1 : 0
+  count = var.enable_aws_extended_support_alerts && var.sns_topic_arn != null ? 1 : 0
   rule  = aws_cloudwatch_event_rule.rds_extended_support_billing[0].name
   arn   = var.sns_topic_arn
 }
@@ -41,7 +41,30 @@ resource "aws_cloudwatch_event_rule" "eks_extended_support_billing" {
 }
 
 resource "aws_cloudwatch_event_target" "eks_extended_support_billing" {
-  count = var.enable_aws_extended_support_alerts ? 1 : 0
+  count = var.enable_aws_extended_support_alerts && var.sns_topic_arn != null ? 1 : 0
   rule  = aws_cloudwatch_event_rule.eks_extended_support_billing[0].name
+  arn   = var.sns_topic_arn
+}
+
+# EventBridge Rule (CloudFormation StackSet Stack Instance Rollout Failure)
+resource "aws_cloudwatch_event_rule" "stackset_instance_failure" {
+  count       = var.enable_stackset_instance_failure_alerts ? 1 : 0
+  name        = "cloudformation-stackset-instance-failure-notification"
+  description = "Captures CloudFormation StackSet stack instance rollout failures"
+
+  event_pattern = jsonencode({
+    "source" : ["aws.cloudformation"],
+    "detail-type" : ["CloudFormation StackSet StackInstance Status Change"],
+    "detail" : {
+      "status-details" : {
+        "detailed-status" : ["FAILED", "FAILED_IMPORT"]
+      }
+    }
+  })
+}
+
+resource "aws_cloudwatch_event_target" "stackset_instance_failure" {
+  count = var.enable_stackset_instance_failure_alerts && var.sns_topic_arn != null ? 1 : 0
+  rule  = aws_cloudwatch_event_rule.stackset_instance_failure[0].name
   arn   = var.sns_topic_arn
 }
